@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonmoy Sutradhar - Aspiring Cricketer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a2e, #16213e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 255, 255, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            color: #00ffff;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ffff;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Page Sections */
+        .page {
+            min-height: 100vh;
+            padding: 100px 20px 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Home Section */
+        .home-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .profile-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .profile-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #00ffff;
+            border-bottom-color: #ff00ff;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin: 20px 0;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.5); }
+        }
+
+        .tagline {
+            font-size: 1.5em;
+            color: #00ffff;
+            margin-bottom: 20px;
+        }
+
+        .cricket-icon {
+            font-size: 3em;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .dream-box {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .dream-box h3 {
+            color: #00ffff;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .skill-card:hover::before {
+            left: 100%;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 255, 255, 0.3);
+            border-color: #00ffff;
+        }
+
+        .skill-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .skill-card h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        /* Education Section */
+        .education-timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-left: 5px solid #00ffff;
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
+        }
+
+        .timeline-item h3 {
+            color: #00ffff;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item .institution {
+            color: #ff00ff;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Cricket Section */
+        .cricket-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(0, 255, 255, 0.3);
+        }
+
+        .stat-box .number {
+            font-size: 2.5em;
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .stat-box .label {
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        .achievement-badge {
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 255, 255, 0.3);
+        }
+
+        .contact-card h3 {
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .contact-card a {
+            color: #fff;
+            text-decoration: none;
+            word-break: break-all;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: #00ffff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .social-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #00ffff, #0080ff);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .social-btn.facebook {
+            background: linear-gradient(135deg, #1877f2, #0a4db5);
+            color: #fff;
+        }
+
+        .social-btn.instagram {
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #fff;
+        }
+
+        .social-btn.whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: #fff;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: #00ffff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            nav a {
+                font-size: 0.9em;
+            }
+
+            .profile-img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#cricket">Cricket</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="page home-section">
+        <div class="profile-container">
+            <div class="profile-ring"></div>
+            <img src="https://scontent.fdac138-2.fna.fbcdn.net/v/t39.30808-6/470523960_122149262584285645_2033984827669341854_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGJEwdWmgJ75bUZX25RVy7R7Tq_FqmxYvvtOr8WqbFi-wBITWK35-wjKxgzwJL6L0uu1V4xwPgH-WVwL3J6ZTk4&_nc_ohc=JWPSMlLXfLgQ7kNvgFa1lUc&_nc_oc=Adhg3PiUJ8XJO3V3TU7oqCFOVqHWY2FN2h7ZJWMHBjqGlWMt1XO_aBWKG8jKcKP7xVc&_nc_zt=23&_nc_ht=scontent.fdac138-2.fna&_nc_gid=ALkLqCcqRFbxMh4wIbLUG8j&oh=00_AYAV8A5SqWU7ZcGNIGrvnMQFv0lH3EePEGhbFZUL7I_Tvg&oe=6770C7AB" alt="Tonmoy Sutradhar" class="profile-img">
+        </div>
+        <h1>Tonmoy Sutradhar</h1>
+        <p class="tagline">Student | Aspiring Cricketer</p>
+        <div class="cricket-icon">🏏</div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="page">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hello! I'm Tonmoy Sutradhar, a passionate student and aspiring cricketer from Sherpur, Bangladesh. Cricket is not just a sport for me—it's my life, my passion, and my ultimate dream.</p>
+                    <p>I combine my love for academics, particularly Physics, with the strategic and physical demands of cricket. I believe that understanding the science behind the game gives me an edge on the field.</p>
+                    <p>Every day, I work towards becoming a better cricketer through dedicated practice, fitness training, and continuous learning. My journey in first-class cricket is just the beginning!</p>
+                </div>
+                <div class="dream-box">
+                    <h3>My Dream 🌟</h3>
+                    <p>To become a great cricketer and represent my country at the highest level. I aspire to inspire the next generation of cricketers and make my family and nation proud through my performance on the field.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="page">
+        <div class="container">
+            <h2>Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🏏</div>
+                    <h3>Batting</h3>
+                    <p>Strong batting technique with excellent shot selection and timing. Consistent performer under pressure situations.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🤾</div>
+                    <h3>Fielding</h3>
+                    <p>Agile fielder with quick reflexes and accurate throwing. Excel in ground fielding and catching.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">💪</div>
+                    <h3>Fitness</h3>
+                    <p>Dedicated to physical conditioning, endurance training, and maintaining peak athletic performance.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚛️</div>
+                    <h3>Physics</h3>
+                    <p>Strong understanding of physics principles, applying scientific concepts to improve cricket technique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="page">
+        <div class="container">
+            <h2>Education</h2>
+            <div class="education-timeline">
+                <div class="timeline-item">
+                    <h3>Current: College</h3>
+                    <p class="institution">Engineering University School and College, BUET</p>
+                    <p>Pursuing higher education at one of Bangladesh's most prestigious institutions, balancing academics with cricket training.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>School</h3>
+                    <p class="institution">Sherpur Govt. Victoria Academy</p>
+                    <p>Completed foundational education while developing my cricket skills and academic excellence in Physics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cricket Section -->
+    <section id="cricket" class="page">
+        <div class="container">
+            <h2>Cricket Journey</h2>
+            <div class="achievement-badge">
+                🏆 First-Class Cricket Player
+            </div>
+            <div class="cricket-stats">
+                <div class="stat-box">
+                    <div class="number">🏏</div>
+                    <p class="label">Batting Specialist</p>
+                </div>
+                <div class="stat-box">
+                    <div class="number">⚡</div>
+                    <p class="label">Agile Fielder</p>
+                </div>
+                <div class="stat-box">
+                    <div class="number">🎯</div>
+                    <p class="label">First-Class Player</p>
+                </div>
+                <div class="stat-box">
+                    <div class="number">💯</div>
+                    <p class="label">Fitness Focused</p>
+                </div>
+            </div>
+            <div style="margin-top: 40px; text-align: center;">
+                <h3 style="color: #00ffff; font-size: 1.8em; margin-bottom: 20px;">Cricket Club</h3>
+                <div class="dream-box" style="max-width: 600px; margin: 0 auto;">
+                    <h3>Sherpur Sports Academy</h3>
+                    <p>Training and competing at Sherpur Sports Academy, developing my skills and representing the club in various tournaments and matches.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="page">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>📧 Email</h3>
+                    <a href="mailto:tonmoysutradhar317@gmail.com">tonmoysutradhar317@gmail.com</a>
+                </div>
+                <div class="contact-card">
+                    <h3>📱 WhatsApp</h3>
+                    <a href="https://wa.me/8801869355060">+880 1869355060</a>
+                </div>
+                <div class="contact-card">
+                    <h3>📍 Location</h3>
+                    <p>Dhaka, Bangladesh</p>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1BzRzzuqW7/" target="_blank" class="social-btn facebook">Facebook</a>
+                <a href="https://www.instagram.com/to_nm_oy__36?igsh=YzY4OTZ1NjBrNzRh" target="_blank" class="social-btn instagram">Instagram</a>
+                <a href="https://wa.me/8801869355060" target="_blank" class="social-btn whatsapp">WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.page').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
